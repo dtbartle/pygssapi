@@ -13,12 +13,7 @@ cdef object _gss_buffer_t_to_str(
         gss_buffer_t buffer
     ):
 
-    cdef object obj
-    obj = Py_BuildValue("s#", buffer.value, buffer.length)
-    if obj == None:
-        return ""
-    else:
-        return obj
+    return PyString_FromStringAndSize(<char*>buffer.value, buffer.length)
 
 # buffer will be valid until obj is free'd
 # this function will raise an exception if obj is not a string
